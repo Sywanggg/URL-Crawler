@@ -1,0 +1,22 @@
+from selenium.webdriver import Chrome
+from selenium.webdriver.common.keys import Keys
+from selenium import webdriver
+import time
+
+#创建浏览器对象
+driver = webdriver.Chrome()
+
+#绕过selenium检测
+driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument",
+                       {"source":"""Object.defineProperty(navigator,'webdriver',{get:() => undefined})"""})
+
+#打开一个网站
+driver.get("https://kyfw.12306.cn/otn/resources/login.html")
+
+
+el = driver.find_element("xpath",'//*[@id="J-userName"]').send_keys("18537867628")#输入账号
+el = driver.find_element("xpath",'//*[@id="J-password"]').send_keys("zcq20010319")#输入密码
+el = driver.find_element("xpath",'//*[@id="J-login"]').click()#点击登录
+
+
+
